@@ -1,0 +1,134 @@
+"""
+{{ domain }}.py — AI provider adapter for {{ DomainName }}.
+
+BLUEPRINT RULES (Anti-Corruption Layer + Bulkhead + Observability):
+  * Implements the `AIProvider` Protocol — duck-typed at static-check time.
+  * Uses `get_provider_client("{{ domain }}")` so it has its OWN connection
+    pool (Bulkhead, Principle 5).
+  * Sets `provider_ctx.set("{{ domain }}")` before every outbound call so logs
+    are tagged automatically (Observability, Principle 7).
+  * Maps EVERY error path to the `ProviderError` hierarchy. NEVER lets an
+    `httpx.HTTPStatusError`, `KeyError`, or `TimeoutError` escape (ACL,
+    Principle 3).
+  * Returns `GenerateResult`, NEVER a raw dict.
+"""
+
+from __future__ import annotations
+
+import logging
+from decimal import Decimal
+from typing import Any
+
+import httpx
+
+from ..core.bulkhead import get_provider_client
+from ..core.context import provider_ctx
+from .base import AIProvider, GenerateRequest, GenerateResult
+from .errors import (
+    ProviderAuthError,
+    ProviderError,
+    ProviderInvalidResponseError,
+    ProviderRateLimitError,
+    ProviderTimeoutError,
+)
+
+log = logging.getLogger(__name__)
+
+PROVIDER_NAME = "{{ domain }}"
+BASE_URL = "https://api.{{ domain }}.example.com"
+
+
+class {{ DomainName }}Provider:
+    """Adapter for the {{ DomainName }} API."""
+
+    provider_name: str = PROVIDER_NAME
+
+    def __init__(self, api_key: str) -> None:
+        self._api_key = api_key
+        # Bulkhead: shared per-provider client, NEVER a fresh client per call.
+        self._client: httpx.AsyncClient = get_provider_client(PROVIDER_NAME)
+
+    async def generate(self, request: GenerateRequest) -> GenerateResult:
+        provider_ctx.set(PROVIDER_NAME)
+
+        url = f"{BASE_URL}/{request.model}"
+        headers = {"Authorization": f"Bearer {self._api_key}"}
+        payload = {"prompt": request.prompt, **request.params}
+
+        try:
+            response = await self._client.post(
+                url, headers=headers, json=payload
+            )
+        except (httpx.ReadTimeout, httpx.ConnectTimeout) as exc:
+            raise ProviderTimeoutError(
+                f"{PROVIDER_NAME} timeout: {exc}", retryable=True
+            ) from exc
+        except httpx.HTTPError as exc:
+            raise ProviderError(
+                f"{PROVIDER_NAME} transport error: {exc}", retryable=True
+            ) from exc
+
+        return _interpret_response(response, model=request.model)
+
+
+def _interpret_response(
+    response: httpx.Response, *, model: str
+) -> GenerateResult:
+    if response.status_code == 401 or response.status_code == 403:
+        raise ProviderAuthError(
+            f"{PROVIDER_NAME} auth failed: {response.status_code}"
+        )
+    if response.status_code == 429:
+        retry_after = int(response.headers.get("Retry-After", "0") or 0)
+        raise ProviderRateLimitError(
+            f"{PROVIDER_NAME} rate limited",
+            retry_after=retry_after,
+            retryable=True,
+        )
+    if response.status_code >= 500:
+        raise ProviderError(
+            f"{PROVIDER_NAME} server error {response.status_code}",
+            retryable=True,
+        )
+    if response.status_code >= 400:
+        raise ProviderError(
+            f"{PROVIDER_NAME} client error {response.status_code}: "
+            f"{response.text[:200]}",
+            retryable=False,
+        )
+
+    try:
+        body: dict[str, Any] = response.json()
+    except ValueError as exc:
+        raise ProviderInvalidResponseError(
+            f"{PROVIDER_NAME} returned non-JSON body"
+        ) from exc
+
+    return _parse_response(body, model=model)
+
+
+def _parse_response(body: dict[str, Any], *, model: str) -> GenerateResult:
+    """
+    Convert provider JSON to `GenerateResult`. Raise
+    `ProviderInvalidResponseError` if the shape is unexpected — never let a
+    raw `KeyError` propagate.
+    """
+    try:
+        output_url = body["output"]["url"]
+        cost = Decimal(str(body.get("cost_usd", "0")))
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ProviderInvalidResponseError(
+            f"{PROVIDER_NAME}: unexpected response shape: {list(body)[:5]}"
+        ) from exc
+
+    return GenerateResult(
+        provider=PROVIDER_NAME,
+        model=model,
+        output_url=output_url,
+        cost_usd=cost,
+        raw_metadata=body,
+    )
+
+
+# Static-time protocol check — fails the import if the protocol drifts.
+_assert_protocol: AIProvider = {{ DomainName }}Provider(api_key="x")  # noqa: F841

@@ -1,0 +1,58 @@
+"""
+{{ domain }}.py — service layer for the {{ domain }} domain.
+
+BLUEPRINT RULES:
+  * Services are the ONLY place that holds business logic.
+  * Services accept a Protocol (e.g. `{{ DomainName }}RepoProtocol`) — never a
+    concrete SQLAlchemy class. This keeps tests fake-friendly.
+  * NO `from sqlalchemy ...` imports here. If you need data, go via the repo.
+  * If this domain mutates external state (wallet holds, payment captures),
+    follow the Single-Writer Principle: there is exactly ONE service method
+    that calls the mutating repo method.
+"""
+
+from __future__ import annotations
+
+from fastapi import Depends
+
+from ..repositories.protocols import {{ DomainName }}RepoProtocol
+from ..repositories.{{ domain }} import get_{{ domain }}_repo
+from ..schemas.{{ domain }} import (
+    {{ DomainName }}{{ action.capitalize() }}Request,
+    {{ DomainName }}{{ action.capitalize() }}Response,
+)
+
+
+class {{ DomainName }}Service:
+    """Business logic for the {{ domain }} domain."""
+
+    def __init__(self, repo: {{ DomainName }}RepoProtocol) -> None:
+        # Inject the protocol, not a concrete class. Tests pass a fake.
+        self._repo = repo
+
+    async def {{ action }}(
+        self,
+        *,
+        user_id: str,
+        payload: {{ DomainName }}{{ action.capitalize() }}Request,
+    ) -> {{ DomainName }}{{ action.capitalize() }}Response:
+        """
+        TODO: implement the business rule for `{{ action }}`.
+
+        Reminders:
+          - Scope every repo query by `user_id`.
+          - Validate domain rules here (not in the router).
+          - Return a typed response model.
+        """
+        raise NotImplementedError("implement {{ DomainName }}Service.{{ action }}")
+
+
+# ---------------------------------------------------------------------------
+# Factory for FastAPI Depends()
+# ---------------------------------------------------------------------------
+
+
+def get_{{ domain }}_service(
+    repo: {{ DomainName }}RepoProtocol = Depends(get_{{ domain }}_repo),
+) -> {{ DomainName }}Service:
+    return {{ DomainName }}Service(repo=repo)

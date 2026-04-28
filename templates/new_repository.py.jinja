@@ -1,0 +1,87 @@
+"""
+{{ domain }}.py — repository for the {{ domain }} domain.
+
+BLUEPRINT RULES:
+  * The protocol lives in `repositories/protocols.py` — services depend on it.
+  * The SQLAlchemy implementation lives here — services NEVER import from
+    this file directly. They depend on the protocol.
+  * `Depends(get_db)` is the ONLY place an `AsyncSession` enters a repo.
+  * Every method scopes its query by `user_id` (multi-tenancy enforcement).
+"""
+
+from __future__ import annotations
+
+from typing import Protocol
+
+from fastapi import Depends
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from ..database import get_db
+from ..models.{{ domain }} import {{ DomainName }}
+
+
+# ---------------------------------------------------------------------------
+# Protocol — service-facing contract.
+# Move this class into `repositories/protocols.py` to keep imports clean.
+# ---------------------------------------------------------------------------
+
+
+class {{ DomainName }}RepoProtocol(Protocol):
+    """The contract services depend on. Implementations live in adapters."""
+
+    async def get_by_id(self, user_id: str, item_id: str) -> {{ DomainName }} | None:
+        ...
+
+    async def list_for_user(self, user_id: str, limit: int = 50) -> list[{{ DomainName }}]:
+        ...
+
+    async def create(self, user_id: str, **fields) -> {{ DomainName }}:
+        ...
+
+
+# ---------------------------------------------------------------------------
+# SQLAlchemy implementation
+# ---------------------------------------------------------------------------
+
+
+class SQLAlchemy{{ DomainName }}Repo:
+    def __init__(self, db: AsyncSession) -> None:
+        self._db = db
+
+    async def get_by_id(
+        self, user_id: str, item_id: str
+    ) -> {{ DomainName }} | None:
+        stmt = (
+            select({{ DomainName }})
+            .where({{ DomainName }}.id == item_id)
+            .where({{ DomainName }}.user_id == user_id)  # multi-tenancy
+        )
+        return (await self._db.execute(stmt)).scalar_one_or_none()
+
+    async def list_for_user(
+        self, user_id: str, limit: int = 50
+    ) -> list[{{ DomainName }}]:
+        stmt = (
+            select({{ DomainName }})
+            .where({{ DomainName }}.user_id == user_id)
+            .limit(limit)
+        )
+        return list((await self._db.execute(stmt)).scalars())
+
+    async def create(self, user_id: str, **fields) -> {{ DomainName }}:
+        obj = {{ DomainName }}(user_id=user_id, **fields)
+        self._db.add(obj)
+        await self._db.flush()
+        return obj
+
+
+# ---------------------------------------------------------------------------
+# Factory — service depends on the *protocol*, FastAPI wires the impl.
+# ---------------------------------------------------------------------------
+
+
+def get_{{ domain }}_repo(
+    db: AsyncSession = Depends(get_db),
+) -> {{ DomainName }}RepoProtocol:
+    return SQLAlchemy{{ DomainName }}Repo(db=db)

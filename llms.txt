@@ -1,0 +1,49 @@
+# vibecodex
+
+> The clean-code bible for AI-powered apps. 54 production principles spanning FastAPI (Python), Next.js 15 (TypeScript), and Go 1.22+ that prevent vibe-coded apps from breaking in production. Designed to be read by AI coding agents (Claude, Cursor, GPT, Copilot, Cline) and applied from the first line of code.
+
+vibecodex codifies architectural patterns into 6 documented parts:
+- **Part A — FastAPI Decomposition** (8 principles): folder-instead-of-file splits, file size caps, backward-compatible re-exports.
+- **Part B — FastAPI Integration** (10 principles): hexagonal/Ports & Adapters, Anti-Corruption Layer, bulkhead per HTTP client, idempotency keys, single-writer for billing, contract tests, observability via contextvars.
+- **Part C — Next.js Decomposition** (10 principles): feature-driven colocation, React Server Components by default, errors-as-values, Zustand per domain.
+- **Part D — Next.js Modern Patterns** (6 principles): typed cache-tag DSL, React 19 `use()` hook, streaming Suspense, Partial Prerendering, Better Auth + RSC session, Drizzle ORM with repository protocol.
+- **Part E — Go Decomposition** (8 principles): `cmd/` + `internal/` layout, consumer-side small interfaces, no `utils` packages, table-driven tests.
+- **Part F — Go Integration** (10 principles): "accept interfaces, return structs", `context.Context` propagation, errors-as-values with `%w`, one `*http.Client` per provider, `errgroup` for concurrency, `log/slog` with request context, graceful shutdown via `signal.NotifyContext`.
+
+The repo ships three working reference applications, eight Claude Code skills (debug-backend, new-feature, split-monolith, add-provider, debug-frontend, new-feature-nextjs, debug-go, new-feature-go), a `CLAUDE.md` file with authoritative instructions for AI assistants, and a Cursor `.cursor/rules/` directory.
+
+## Documentation
+
+- [Part A — FastAPI Decomposition](docs/principles/01-safe-decomposition.md): 8 principles covering folder-instead-of-file, file size caps (400 soft / 600 hard), static-data separation, auth/schema isolation from endpoints, worker handlers outside routers, user-API vs admin-API split, backward-compatible `__init__.py` re-exports.
+- [Part B — FastAPI Integration](docs/principles/02-integration-patterns.md): 10 principles covering hexagonal architecture via Protocol, FastAPI `Depends()` factories instead of DI containers, ACL for external providers (`GenerateResult | ProviderError`), strategy pattern for provider routing, bulkhead with per-provider `httpx.AsyncClient`, idempotency keys, contextvars-based observability, feature flags for migrations, contract tests, single-writer principle for critical resources.
+- [Part C — Next.js Decomposition](docs/principles/03-nextjs-decomposition.md): 10 principles for Next.js 15 + React 19 + TypeScript covering feature-driven colocation, thin `app/` orchestrator, 200/400 LOC caps, RSC by default with `'use client'` at leaf nodes, Server Actions with errors as values, code colocation, Zustand per domain, strict TypeScript with Zod schemas as source of truth, `useEffect` as last resort, Tailwind + Shadcn only.
+- [Part D — Next.js Modern Patterns](docs/principles/04-nextjs-modern.md): 6 principles for 2024-2025 covering the typed cache-tag DSL (the differentiating pattern: `lib/cache/tags.ts` with `revalidateTag(tags.user(id))` instead of magic strings), React 19 `use()` hook, streaming Suspense with explicit dependency graph, Partial Prerendering, Better Auth with RSC session via `cache()`, Drizzle ORM with repository protocol.
+- [Part E — Go Decomposition](docs/principles/05-go-decomposition.md): 8 principles covering `cmd/` + `internal/` flat layout, package per responsibility (no `utils`/`helpers`/`common`), small interfaces at the consumer side, 500/800 LOC caps, `_test.go` next to code with table-driven tests, generated code separation, domain types in domain packages, thin `main.go` with logic in `run()`.
+- [Part F — Go Integration](docs/principles/06-go-integration.md): 10 principles covering "accept interfaces, return structs", `context.Context` as first parameter of every I/O function, errors as values with `%w` wrapping and `errors.Is`/`errors.As` inspection, one `*http.Client` per provider with explicit `MaxConnsPerHost`, idempotency keys via header + DB unique index, `log/slog` with request context, graceful shutdown via `signal.NotifyContext`, `errgroup` for concurrent operations, single-writer for critical resources, contract tests with `httptest`.
+
+## Reference applications
+
+- [reference/app/](reference/app/): FastAPI 0.111 + SQLAlchemy 2.0 + Pydantic v2 reference. Demonstrates all 18 FastAPI principles with a credits service (HOLD/CONFIRM/REFUND single-writer), AI providers (image, video, text) with Anti-Corruption Layer and bulkhead, and async job dispatch.
+- [examples/nextjs/](examples/nextjs/): Next.js 15 + React 19 + TypeScript reference. Demonstrates all 16 Next.js principles with the typed cache-tag DSL in `src/lib/cache/tags.ts`, Drizzle ORM with `UsersRepoProtocol` boundary, RSC + streaming Suspense via React 19 `use()` hook, Partial Prerendering enabled per route.
+- [examples/go/](examples/go/): Go 1.22+ stdlib service reference. Demonstrates all 18 Go principles with `cmd/api/main.go` thin wiring, `internal/credits/` single-writer service, `internal/providers/falai.go` with ACL + bulkhead, `internal/httpclient/client.go` per-provider `*http.Client` factory, `internal/server/run.go` graceful shutdown via `signal.NotifyContext`.
+
+## AI agent configuration
+
+- [CLAUDE.md](CLAUDE.md): Authoritative project instructions for any LLM (Claude, GPT, Gemini) working in a vibecodex-adopting codebase. Encodes the 54 principles as actionable rules with forbidden patterns and a pre-implementation checklist.
+- [.cursor/rules/architecture.mdc](.cursor/rules/architecture.mdc): Cursor rule file for layer architecture (Router → Service → Repository).
+- [.cursor/rules/decomposition.mdc](.cursor/rules/decomposition.mdc): Cursor rule file for file decomposition rules (LOC caps, sub-package criteria).
+- [.cursor/rules/integrations.mdc](.cursor/rules/integrations.mdc): Cursor rule file for external integrations (ACL, bulkhead, idempotency, observability).
+- [.claude/skills/debug-backend/SKILL.md](.claude/skills/debug-backend/SKILL.md): Claude Code skill for systematic backend debugging — locate layer, check antipatterns, write reproducing test, fix, verify lint.
+- [.claude/skills/new-feature/SKILL.md](.claude/skills/new-feature/SKILL.md): Claude Code skill for starting any new FastAPI feature — define contract, identify layers, build bottom-up.
+- [.claude/skills/split-monolith/SKILL.md](.claude/skills/split-monolith/SKILL.md): Claude Code skill for safely decomposing a god file with backward-compatible `__init__.py` re-exports.
+- [.claude/skills/add-provider/SKILL.md](.claude/skills/add-provider/SKILL.md): Claude Code skill for adding a new AI provider integration with all 5 integration principles.
+- [.claude/skills/new-feature-nextjs/SKILL.md](.claude/skills/new-feature-nextjs/SKILL.md): Claude Code skill for starting a new Next.js feature with cache tags first, RSC by default, `use()` for client async.
+- [.claude/skills/debug-frontend/SKILL.md](.claude/skills/debug-frontend/SKILL.md): Claude Code skill for systematic Next.js debugging.
+- [.claude/skills/new-feature-go/SKILL.md](.claude/skills/new-feature-go/SKILL.md): Claude Code skill for starting a new Go package with consumer-side interfaces.
+- [.claude/skills/debug-go/SKILL.md](.claude/skills/debug-go/SKILL.md): Claude Code skill for systematic Go debugging including race-condition reproduction.
+
+## Optional
+
+- [README.md](README.md): Hero, full principle index, comparison vs other templates, FAQ, citations.
+- [scripts/lint-architecture.sh](scripts/lint-architecture.sh): Bash script enforcing 6 architecture rules via grep — runs in CI.
+- [docs/adr/001-protocol-over-abc.md](docs/adr/001-protocol-over-abc.md): Architecture decision record for using `typing.Protocol` instead of `abc.ABC` for repository interfaces.
