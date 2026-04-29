@@ -3,7 +3,7 @@
 import { CopyButton } from './CopyButton'
 
 const INSTALL_LINES = [
-  { text: '$ npx vibecodex init', color: '#e0e0e0' },
+  { text: '$ npx @aimyerdaulet/vibecodex init', color: '#e0e0e0' },
   { text: '', color: '' },
   { text: '  ? Select your stack:', color: '#999' },
   { text: '  ❯ FastAPI (Python)', color: '#00d4aa' },
@@ -71,7 +71,7 @@ export function Install() {
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e', display: 'block' }} />
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f', display: 'block' }} />
           </div>
-          <CopyButton text="npx vibecodex init" label="copy" />
+          <CopyButton text="npx @aimyerdaulet/vibecodex init" label="copy" />
         </div>
 
         {/* Output */}

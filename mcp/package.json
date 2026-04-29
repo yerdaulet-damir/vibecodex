@@ -1,5 +1,5 @@
 {
-  "name": "vibecodex-mcp",
+  "name": "@aimyerdaulet/vibecodex-mcp",
   "version": "1.0.0",
   "description": "MCP server for vibecodex — 54 production principles as Claude tools",
   "type": "module",
@@ -7,8 +7,10 @@
   "bin": {
     "vibecodex-mcp": "./dist/index.js"
   },
+  "files": ["dist/", "src/"],
   "scripts": {
     "build": "tsc",
+    "prepare": "npm run build",
     "start": "node dist/index.js",
     "dev": "tsc --watch"
   },

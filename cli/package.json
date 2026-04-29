@@ -1,5 +1,5 @@
 {
-  "name": "vibecodex",
+  "name": "@aimyerdaulet/vibecodex",
   "version": "1.0.0",
   "description": "Production architecture bible for AI-assisted coding — copy CLAUDE.md, .cursor/rules, and .claude/skills into any project",
   "type": "module",

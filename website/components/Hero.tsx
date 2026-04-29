@@ -91,9 +91,9 @@ export function Hero() {
             color: '#e0e0e0',
           }}>
             <span style={{ color: '#00d4aa' }}>$</span>{' '}
-            npx vibecodex init
+            npx @aimyerdaulet/vibecodex init
           </span>
-          <CopyButton text="npx vibecodex init" />
+          <CopyButton text="npx @aimyerdaulet/vibecodex init" />
         </div>
 
         {/* Stack tags */}
