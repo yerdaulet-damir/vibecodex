@@ -87,12 +87,14 @@ export function Principles() {
     : principles.filter(p => p.stack === filter)
 
   return (
-    <section style={{
-      padding: '80px 80px',
-      maxWidth: 1280,
-      margin: '0 auto',
-    }}
-    className="principles-section"
+    <section
+      id="principles"
+      style={{
+        padding: '80px 80px',
+        maxWidth: 1280,
+        margin: '0 auto',
+      }}
+      className="principles-section"
     >
       <div style={{
         display: 'flex',

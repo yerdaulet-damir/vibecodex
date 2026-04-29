@@ -1,3 +1,4 @@
+import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { Problem } from '../components/Problem'
 import { HowItWorks } from '../components/HowItWorks'
@@ -8,8 +9,9 @@ import { Footer } from '../components/Footer'
 export default function Home() {
   return (
     <main style={{ background: '#080808', minHeight: '100vh' }}>
-      {/* Subtle top border accent */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, #00d4aa40, transparent)' }} />
+      {/* Top accent line */}
+      <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, #00d4aa, transparent)' }} />
+      <Navbar />
       <Hero />
       <div style={{ height: 1, background: '#111' }} />
       <Problem />
