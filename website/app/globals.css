@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #080808;
+  --surface: #111111;
+  --surface-2: #161616;
+  --border: #1e1e1e;
+  --border-2: #2a2a2a;
+  --accent: #00d4aa;
+  --accent-dim: rgba(0, 212, 170, 0.08);
+  --text: #ffffff;
+  --text-2: #e0e0e0;
+  --muted: #666666;
+  --muted-2: #333333;
+  --red: #ff4d4d;
+  --python: #3776ab;
+  --typescript: #3178c6;
+  --go: #00add8;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+code, pre, .mono {
+  font-family: var(--font-geist-mono), 'Cascadia Code', monospace;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--muted-2); border-radius: 3px; }
+
+.shiki { background: transparent !important; }
+.shiki code { font-size: 13px; line-height: 1.65; }
+
+::selection { background: var(--accent-dim); color: var(--accent); }
