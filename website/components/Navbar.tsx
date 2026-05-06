@@ -82,7 +82,7 @@ export function Navbar() {
           FAQ
         </a>
         <a
-          href="https://github.com/yerdaulet-damir/vibecodex"
+          href="https://github.com/yerdaulet-damir/vibe-coding-rules"
           target="_blank"
           rel="noopener noreferrer"
           style={{

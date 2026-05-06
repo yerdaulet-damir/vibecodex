@@ -1,26 +1,38 @@
 {
   "name": "@aimyerdaulet/vibecodex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production architecture bible for AI-assisted coding — copy CLAUDE.md, .cursor/rules, and .claude/skills into any project",
   "type": "module",
   "bin": {
     "vibecodex": "./bin/vibecodex.js"
   },
-  "files": ["bin/", "src/"],
+  "files": [
+    "bin/",
+    "src/"
+  ],
   "scripts": {
     "test": "node bin/vibecodex.js init --stack fastapi --dry-run"
   },
   "keywords": [
-    "claude", "cursor", "vibe-coding", "architecture",
-    "fastapi", "nextjs", "golang", "claude-code", "cursor-rules",
-    "ai-coding", "clean-architecture", "hexagonal"
+    "claude",
+    "cursor",
+    "vibe-coding",
+    "architecture",
+    "fastapi",
+    "nextjs",
+    "golang",
+    "claude-code",
+    "cursor-rules",
+    "ai-coding",
+    "clean-architecture",
+    "hexagonal"
   ],
   "author": "yerdaulet-damir",
   "license": "MIT",
-  "homepage": "https://github.com/yerdaulet-damir/vibecodex",
+  "homepage": "https://github.com/yerdaulet-damir/vibe-coding-rules",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yerdaulet-damir/vibecodex.git"
+    "url": "https://github.com/yerdaulet-damir/vibe-coding-rules.git"
   },
   "dependencies": {
     "prompts": "^2.4.2",

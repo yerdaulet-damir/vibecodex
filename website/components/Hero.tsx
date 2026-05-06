@@ -115,7 +115,7 @@ export function Hero() {
         {/* GitHub link */}
         <div style={{ display: 'flex', gap: 16 }}>
           <a
-            href="https://github.com/yerdaulet-damir/vibecodex"
+            href="https://github.com/yerdaulet-damir/vibe-coding-rules"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -131,7 +131,7 @@ export function Hero() {
             onMouseOver={e => (e.currentTarget.style.color = '#00d4aa')}
             onMouseOut={e => (e.currentTarget.style.color = '#666')}
           >
-            ⭐ github.com/yerdaulet-damir/vibecodex
+            ⭐ github.com/yerdaulet-damir/vibe-coding-rules
           </a>
         </div>
       </div>

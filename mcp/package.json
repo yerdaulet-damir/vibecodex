@@ -1,13 +1,16 @@
 {
   "name": "@aimyerdaulet/vibecodex-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for vibecodex — 54 production principles as Claude tools",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "vibecodex-mcp": "./dist/index.js"
   },
-  "files": ["dist/", "src/"],
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
@@ -29,7 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yerdaulet-damir/vibecodex"
+    "url": "https://github.com/yerdaulet-damir/vibe-coding-rules"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.0",

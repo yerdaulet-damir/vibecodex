@@ -2,7 +2,7 @@ import { writeFile, mkdir } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import kleur from 'kleur'
 
-const BASE_URL = 'https://raw.githubusercontent.com/yerdaulet-damir/vibecodex/main'
+const BASE_URL = 'https://raw.githubusercontent.com/yerdaulet-damir/vibe-coding-rules/main'
 
 export async function copyFiles(files, dryRun = false) {
   const cwd = process.cwd()

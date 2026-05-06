@@ -50,7 +50,7 @@ export async function run() {
     console.log('    npx vibecodex init --stack go       ' + kleur.dim('# Go 1.22+'))
     console.log('    npx vibecodex init --stack all      ' + kleur.dim('# all stacks'))
     console.log('')
-    console.log(kleur.dim('  https://github.com/yerdaulet-damir/vibecodex'))
+    console.log(kleur.dim('  https://github.com/yerdaulet-damir/vibe-coding-rules'))
     console.log('')
     process.exit(0)
   }
@@ -107,6 +107,6 @@ export async function run() {
   )
   console.log('')
   console.log(kleur.dim('  Next: open CLAUDE.md to see what Claude will follow.'))
-  console.log(kleur.dim('  Docs: https://github.com/yerdaulet-damir/vibecodex'))
+  console.log(kleur.dim('  Docs: https://github.com/yerdaulet-damir/vibe-coding-rules'))
   console.log('')
 }

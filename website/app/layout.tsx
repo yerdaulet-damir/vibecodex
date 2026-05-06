@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = "https://vibecodex-omega.vercel.app";
-const REPO_URL = "https://github.com/yerdaulet-damir/vibecodex";
+const REPO_URL = "https://github.com/yerdaulet-damir/vibe-coding-rules";
 const NPM_CLI = "https://www.npmjs.com/package/@aimyerdaulet/vibecodex";
 const NPM_MCP = "https://www.npmjs.com/package/@aimyerdaulet/vibecodex-mcp";
 const AUTHOR_GH = "https://github.com/yerdaulet-damir";
@@ -221,7 +221,7 @@ const faqSchema = {
       name: "Is vibecodex free and open source?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. vibecodex is MIT-licensed and free. Source code is at github.com/yerdaulet-damir/vibecodex. The CLI is published on npm as @aimyerdaulet/vibecodex and the MCP server as @aimyerdaulet/vibecodex-mcp.",
+        text: "Yes. vibecodex is MIT-licensed and free. Source code is at github.com/yerdaulet-damir/vibe-coding-rules. The CLI is published on npm as @aimyerdaulet/vibecodex and the MCP server as @aimyerdaulet/vibecodex-mcp.",
       },
     },
     {

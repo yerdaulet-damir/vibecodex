@@ -1,53 +1,30 @@
-<div align="center">
+# vibecodex — vibe coding rules for production
 
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=009688&height=200&section=header&text=vibecodex&fontSize=70&fontAlignY=35&desc=54%20production%20principles%20for%20AI-assisted%20coding&descAlignY=55&descAlign=50" alt="vibecodex banner" />
+> 54 production architecture principles your AI coding agent (Claude Code, Cursor) follows automatically. Drop-in `CLAUDE.md`, `.cursor/rules/`, and `.claude/skills/` for **FastAPI**, **Next.js 15**, and **Go 1.22+**. MIT.
 
-  <br>
-  
-  <!-- Typing SVG for dynamic text -->
-  <a href="https://github.com/yerdaulet-damir/vibecodex">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=009688&center=true&vCenter=true&width=620&lines=The+clean-code+bible+for+AI-powered+apps.;54+Production+Principles.;FastAPI+%E2%80%A2+Next.js+%E2%80%A2+Go.;For+vibe-coders%2C+solo+devs%2C+indie+hackers." alt="Typing SVG" />
-  </a>
-  
-  <br>
-  
-  <!-- coolreadme.xyz dynamic streak pet -->
-  <a href="https://coolreadme.xyz">
-    <img src="https://coolreadme.xyz/api/fox-card?user=yerdaulet-damir" alt="Developer Streak Fox" />
-  </a>
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Go](https://img.shields.io/badge/Go-1.22+-00ADD8.svg?logo=go&logoColor=white)](https://go.dev/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/yerdaulet-damir/vibe-coding-rules?color=yellow)](https://github.com/yerdaulet-damir/vibe-coding-rules/stargazers)
+[![npm](https://img.shields.io/npm/v/@aimyerdaulet/vibecodex?label=npm&color=cb3837&logo=npm)](https://www.npmjs.com/package/@aimyerdaulet/vibecodex)
 
-  <br>
+```bash
+npx @aimyerdaulet/vibecodex init
+```
 
-  <p>
-    <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.11+-blue.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11+"></a>
-    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/fastapi-0.111-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI 0.111"></a>
-    <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-15-000000.svg?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 15"></a>
-    <a href="https://go.dev/"><img src="https://img.shields.io/badge/Go-1.22+-00ADD8.svg?style=for-the-badge&logo=go&logoColor=white" alt="Go 1.22+"></a>
-    <br>
-    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge" alt="License: MIT"></a>
-    <a href="https://github.com/yerdaulet-damir/vibecodex/stargazers"><img src="https://img.shields.io/github/stars/yerdaulet-damir/vibecodex?style=for-the-badge&color=yellow" alt="Stars"></a>
-    <a href="https://github.com/yerdaulet-damir/vibecodex"><img src="https://komarev.com/ghpvc/?username=yerdaulet-damir-vibecodex&label=Views&color=009688&style=for-the-badge" alt="Visitor Badge"/></a>
-  </p>
-  
-  <p>
-    <a href="https://github.com/yerdaulet-damir/vibecodex">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=yerdaulet-damir&repo=vibecodex&theme=radical" alt="Vibecodex Repo Card" />
-    </a>
-  </p>
-  
-  <p>
-    <strong>54 production principles that prevent your vibe-coded app from breaking after 3 months.</strong><br>
-    <em>Full stack: FastAPI · Next.js 15 · Go 1.22+. Copy <code>CLAUDE.md</code>, <code>.cursor/rules/</code>, and <code>.claude/skills/</code> into your repo — your AI coding agent instantly knows how to build it the right way from line one.</em>
-  </p>
+**[📘 Principles](docs/principles/01-safe-decomposition.md)** · **[🐍 FastAPI example](reference/app/)** · **[⚡ Next.js example](examples/nextjs/)** · **[🐹 Go example](examples/go/)** · **[🤖 Claude skills](.claude/skills/)** · **[🌐 vibecodex.dev](https://vibecodex-omega.vercel.app)**
 
-  <p>
-    <a href="docs/principles/01-safe-decomposition.md"><strong>📘 Read the principles</strong></a> &nbsp;·&nbsp;
-    <a href="reference/app/"><strong>🐍 FastAPI example</strong></a> &nbsp;·&nbsp;
-    <a href="examples/nextjs/"><strong>⚡ Next.js example</strong></a> &nbsp;·&nbsp;
-    <a href="examples/go/"><strong>🐹 Go example</strong></a> &nbsp;·&nbsp;
-    <a href=".claude/skills/"><strong>🤖 Claude skills</strong></a>
-  </p>
-</div>
+---
+
+## What is vibecodex?
+
+vibecodex is the **clean-code bible for vibe coding** — 54 numbered architecture principles (A1–F10) that turn AI coding agents from fast juniors into disciplined seniors. You drop one `CLAUDE.md` plus a folder of Cursor rules into your repo, and from the next prompt every Claude Code or Cursor session follows production patterns: file size limits, anti-corruption layers, idempotency keys, bulkhead isolation, single-writer invariants, hexagonal boundaries.
+
+It's built for **vibe coders, solo devs, and indie hackers** who ship fast with AI but don't want their Friday-night SaaS to become an unmaintainable 1,400-line router by Sunday.
+
+**Three stacks. One ruleset. Zero dependencies on a specific agent.**
 
 ---
 
@@ -81,7 +58,7 @@
 
 ```bash
 # Add vibecodex rules to your project (any stack)
-git clone https://github.com/yerdaulet-damir/vibecodex.git /tmp/vibecodex
+git clone https://github.com/yerdaulet-damir/vibe-coding-rules.git /tmp/vibecodex
 
 # 1. Drop CLAUDE.md into your repo root — Claude reads it on every session
 cp /tmp/vibecodex/CLAUDE.md ./

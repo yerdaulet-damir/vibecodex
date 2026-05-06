@@ -100,7 +100,7 @@ export function Install() {
         justifyContent: 'center',
       }}>
         <a
-          href="https://github.com/yerdaulet-damir/vibecodex"
+          href="https://github.com/yerdaulet-damir/vibe-coding-rules"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -129,7 +129,7 @@ export function Install() {
           ⭐ Star on GitHub
         </a>
         <a
-          href="https://github.com/yerdaulet-damir/vibecodex/tree/main/docs/principles"
+          href="https://github.com/yerdaulet-damir/vibe-coding-rules/tree/main/docs/principles"
           target="_blank"
           rel="noopener noreferrer"
           style={{

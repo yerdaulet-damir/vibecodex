@@ -21,7 +21,7 @@ export function Footer() {
         vibecodex · MIT license
       </span>
       <a
-        href="https://github.com/yerdaulet-damir/vibecodex"
+        href="https://github.com/yerdaulet-damir/vibe-coding-rules"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -34,7 +34,7 @@ export function Footer() {
         onMouseOver={e => e.currentTarget.style.color = '#666'}
         onMouseOut={e => e.currentTarget.style.color = '#333'}
       >
-        github.com/yerdaulet-damir/vibecodex
+        github.com/yerdaulet-damir/vibe-coding-rules
       </a>
       <style>{`
         @media (max-width: 700px) {

@@ -113,7 +113,7 @@ export default function Image() {
             npx @aimyerdaulet/vibecodex init
           </div>
           <div style={{ fontSize: 14, color: '#333', display: 'flex' }}>
-            github.com/yerdaulet-damir/vibecodex
+            github.com/yerdaulet-damir/vibe-coding-rules
           </div>
         </div>
       </div>

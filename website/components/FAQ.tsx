@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: 'Is vibecodex free and open source?',
-    a: 'Yes. vibecodex is MIT-licensed and free. Source code is at github.com/yerdaulet-damir/vibecodex. The CLI is published on npm as @aimyerdaulet/vibecodex and the MCP server as @aimyerdaulet/vibecodex-mcp.',
+    a: 'Yes. vibecodex is MIT-licensed and free. Source code is at github.com/yerdaulet-damir/vibe-coding-rules. The CLI is published on npm as @aimyerdaulet/vibecodex and the MCP server as @aimyerdaulet/vibecodex-mcp.',
   },
   {
     q: 'How is vibecodex different from awesome-cursorrules or generic CLAUDE.md templates?',
