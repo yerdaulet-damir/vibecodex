@@ -53,6 +53,7 @@ export function Navbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
         <a
           href="#principles"
+          className="nav-link"
           style={{
             fontFamily: 'var(--font-geist-mono)',
             fontSize: 12,
@@ -64,6 +65,21 @@ export function Navbar() {
           onMouseOut={e => (e.currentTarget.style.color = '#555')}
         >
           54 principles
+        </a>
+        <a
+          href="#faq"
+          className="nav-link"
+          style={{
+            fontFamily: 'var(--font-geist-mono)',
+            fontSize: 12,
+            color: '#555',
+            textDecoration: 'none',
+            transition: 'color 0.15s',
+          }}
+          onMouseOver={e => (e.currentTarget.style.color = '#999')}
+          onMouseOut={e => (e.currentTarget.style.color = '#555')}
+        >
+          FAQ
         </a>
         <a
           href="https://github.com/yerdaulet-damir/vibecodex"
@@ -99,7 +115,7 @@ export function Navbar() {
       <style>{`
         @media (max-width: 700px) {
           .navbar { padding: 0 20px !important; }
-          .navbar a[href="#principles"] { display: none; }
+          .navbar .nav-link { display: none; }
         }
       `}</style>
     </nav>

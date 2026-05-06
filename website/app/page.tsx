@@ -4,6 +4,8 @@ import { Problem } from '../components/Problem'
 import { HowItWorks } from '../components/HowItWorks'
 import { Principles } from '../components/Principles'
 import { Install } from '../components/Install'
+import { FAQ } from '../components/FAQ'
+import { Author } from '../components/Author'
 import { Footer } from '../components/Footer'
 
 export default function Home() {
@@ -21,6 +23,10 @@ export default function Home() {
       <Principles />
       <div style={{ height: 1, background: '#111' }} />
       <Install />
+      <div style={{ height: 1, background: '#111' }} />
+      <FAQ />
+      <div style={{ height: 1, background: '#111' }} />
+      <Author />
       <Footer />
     </main>
   )
